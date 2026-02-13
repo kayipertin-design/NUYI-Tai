@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:black;
+  color:white;
+  text-align:center;
+  overflow:hidden;
+}
+
+.page{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+.show{display:flex;}
+
+button{
+  padding:12px 20px;
+  border:none;
+  border-radius:10px;
+  background:#ff2e88;
+  color:white;
+  font-size:18px;
+  margin:10px;
+  transition:0.3s;
+}
+
+input{
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
+  text-align:center;
+  width:250px;
+}
+
+video{
+  width:90vw;
+  max-width:420px;
+  border-radius:12px;
+}
+
+img{
+  max-width:90vw;
+  max-height:70vh;
+  object-fit:contain;
+  border-radius:15px;
+  display:block;
+  margin:auto;
+}
+
+/* Floating hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:float 6s linear infinite;
+  opacity:0.7;
+}
+@keyframes float{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(-110vh);}
+}
+
+/* Fade slideshow */
+.fade{
+  position:absolute;
+  opacity:0;
+  transition:1s;
+}
+.fade.active{opacity:1;}
+
+/* Final Glow */
+#finalMsg{
+  font-size:28px;
+  margin-top:20px;
+  opacity:0;
+  transition:1s;
+  text-shadow:0 0 10px pink,0 0 20px hotpink,0 0 30px deeppink;
+  animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+  from{text-shadow:0 0 10px pink;}
+  to{text-shadow:0 0 30px hotpink;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgm" src="song.mp3" loop></audio>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page show">
+  <h2>Enter Our Special Date ❤️</h2>
+  <p>(the day our forever began… anniversary hint 😉)</p>
+  <input type="password" id="pass">
+  <button onclick="unlock()">Open 💌</button>
+</div>
+
+<!-- PAGE 2 Cute -->
+<div id="page2a" class="page">
+  <h2>Aww… you remembered 🥺❤️</h2>
+  <p>of course you would 😌</p>
+  <button onclick="show(3)">Continue 💕</button>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="page">
+  <h2>I was doing perfectly fine...</h2>
+  <p>then you came 😤</p>
+  <p>now my mood depends on your texts 😭❤️</p>
+  <button onclick="show(4)">Continue 😌</button>
+</div>
+
+<!-- PAGE 4 VALENTINE -->
+<div id="page4" class="page">
+  <h1>Will You Be My Valentine? ❤️</h1>
+  <button id="yesBtn" onclick="startLove()">YES 😍</button>
+  <button id="noBtn" onclick="growYes()">NO 😏</button>
+</div>
+
+<!-- PHOTO1 -->
+<div id="page5" class="page">
+  <img src="photo1.jpeg">
+</div>
+
+<!-- VIDEO -->
+<div id="page6" class="page">
+  <video id="vid" src="video.mp4" controls></video>
+</div>
+
+<!-- QUOTE -->
+<div id="page7" class="page">
+  <h2>
+  I used to think I was complete on my own…<br><br>
+  but now I realise —<br><br>
+  I only feel whole when I’m with you ❤️
+  </h2>
+</div>
+
+<!-- MEMORIES -->
+<div id="page8" class="page">
+  <div id="slideshow">
+
+    <img src="photo2.jpeg" class="fade active">
+    <img src="photo3.jpeg" class="fade">
+    <img src="photo4.jpeg" class="fade">
+    <img src="photo5.jpeg" class="fade">
+    <img src="photo6.jpeg" class="fade">
+    <img src="photo7.jpeg" class="fade">
+    <img src="photo8.jpeg" class="fade">
+    <img src="photo9.jpeg" class="fade">
+    <img src="photo10.jpeg" class="fade">
+    <img src="photo11.jpeg" class="fade">
+    <img src="photo12.jpeg" class="fade">
+    <img src="photo13.jpeg" class="fade">
+    <img src="photo14.jpeg" class="fade">
+    <img src="photo15.jpeg" class="fade">
+    <img src="photo16.jpeg" class="fade">
+    <img src="photo17.jpeg" class="fade">
+    <img src="photo18.jpeg" class="fade">
+    <img src="photo19.jpeg" class="fade">
+
+  </div>
+
+  <div id="finalMsg">
+    I love you forever Nuyi ❤️
+  </div>
+</div>
+
+<script>
+
+function unlock(){
+  if(document.getElementById("pass").value==="21-12-21"){
+    document.getElementById("bgm").play();
+    show('2a');
+  }else{
+    alert("Wrong password ❤️");
+  }
+}
+
+function show(n){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
+  document.getElementById("page"+n).classList.add("show");
+}
+
+let noTexts = [
+  "NO 😏",
+  "baby no 😶",
+  "come on 😭",
+  "are you sure 😳",
+  "last chance 😤",
+  "think again 🥺",
+  "don't do this 😭",
+  "okay now you're mean 😩"
+];
+
+let grow=1;
+let noIndex=0;
+
+function growYes(){
+  grow+=0.5;
+  document.getElementById("yesBtn").style.transform="scale("+grow+")";
+  noIndex=(noIndex+1)%noTexts.length;
+  document.getElementById("noBtn").innerText=noTexts[noIndex];
+  if(grow>4){
+    document.getElementById("noBtn").style.display="none";
+  }
+}
+
+function startLove(){
+
+  setInterval(()=>{
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+  },500);
+
+  show(5);
+
+  setTimeout(()=>{
+    show(6);
+    let v=document.getElementById("vid");
+    v.play();
+
+    v.onended=function(){
+      show(7);
+      setTimeout(()=>{
+        show(8);
+      },4000);
+    };
+
+  },3000);
+}
+
+let i=0;
+setInterval(()=>{
+  let s=document.querySelectorAll(".fade");
+  s.forEach(x=>x.classList.remove("active"));
+  i=(i+1)%s.length;
+  s[i].classList.add("active");
+
+  if(i==s.length-1){
+    setTimeout(()=>{
+      document.getElementById("finalMsg").style.opacity=1;
+    },2000);
+  }
+},2500);
+
+</script>
+
+</body>
+</html>
